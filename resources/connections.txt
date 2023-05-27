@@ -1,0 +1,191 @@
+New York City - Los Angeles - 320 - $400
+Chicago - Dallas - 180 - $250
+Houston - Phoenix - 150 - $200
+Philadelphia - San Diego - 280 - $350
+San Antonio - San Francisco - 250 - $300
+San Diego - Chicago - 240 - $320
+Dallas - Seattle - 260 - $380
+San Jose - Denver - 180 - $250
+Austin - Washington, D.C. - 180 - $230
+Jacksonville - Boston - 220 - $300
+San Francisco - Nashville - 240 - $320
+Columbus - Portland - 270 - $350
+Indianapolis - Miami - 160 - $220
+Fort Worth - Long Beach - 150 - $200
+Charlotte - Las Vegas - 240 - $320
+Seattle - Albuquerque - 180 - $250
+Denver - Milwaukee - 200 - $270
+Washington, D.C. - Tucson - 260 - $340
+Boston - Fresno - 300 - $380
+El Paso - Sacramento - 210 - $290
+Detroit - Atlanta - 170 - $220
+Nashville - Kansas City - 160 - $210
+Portland - Omaha - 180 - $240
+Memphis - Raleigh - 190 - $260
+Oklahoma City - Miami - 200 - $270
+Las Vegas - New Orleans - 170 - $220
+Louisville - Dallas - 160 - $210
+Baltimore - Tulsa - 210 - $280
+Milwaukee - Virginia Beach - 250 - $330
+Albuquerque - Oakland - 230 - $300
+Tucson - Minneapolis - 270 - $350
+Fresno - Arlington - 220 - $280
+Mesa - Tampa - 210 - $270
+Sacramento - New York City - 320 - $400
+Atlanta - Houston - 180 - $240
+Kansas City - San Francisco - 280 - $360
+Colorado Springs - Charlotte - 240 - $320
+Omaha - Seattle - 220 - $290
+Raleigh - San Antonio - 210 - $280
+Miami - Boston - 240 - $320
+Long Beach - Los Angeles - 20 - $50
+Virginia Beach - Chicago - 230 - $300
+Oakland - Phoenix - 150 - $200
+Minneapolis - Jacksonville - 240 - $320
+Tulsa - Philadelphia - 250 - $330
+Arlington - Denver - 190 - $250
+Tampa - Columbus - 220 - $290
+New Orleans - San Diego - 260 - $340
+Los Angeles - Memphis - 220 - $290
+Jacksonville - Indianapolis - 180 - $240
+Dallas - Fort Worth - 30 - $60
+San Jose - Oklahoma City - 250 - $330
+Austin - Las Vegas - 210 - $280
+Chicago - Baltimore - 230 - $300
+Houston - Detroit - 160 - $210
+Philadelphia - Kansas City - 260 - $340
+San Antonio - Colorado Springs - 210 - $280
+San Diego - Omaha - 240 - $320
+Dallas - Raleigh - 220 - $290
+San Jose - Miami - 280 - $360
+Austin - Long Beach - 160 - $210
+Jacksonville - Virginia Beach - 220 - $290
+San Francisco - Oakland - 20 - $50
+Columbus - Milwaukee - 180 - $240
+Indianapolis - Albuquerque - 210 - $280
+Fort Worth - Tulsa - 160 - $210
+Charlotte - Arlington - 180 - $240
+Seattle - Tampa - 270 - $350
+Denver - New Orleans - 250 - $330
+Washington, D.C. - Nashville - 140 - $190
+Boston - Portland - 180 - $240
+El Paso - Mesa - 40 - $70
+Detroit - Sacramento - 240 - $320
+Nashville - Albuquerque - 220 - $290
+Portland - Tucson - 230 - $300
+Memphis - Fresno - 250 - $330
+Oklahoma City - Atlanta - 170 - $220
+Las Vegas - Kansas City - 230 - $300
+Louisville - Colorado Springs - 210 - $280
+Baltimore - Omaha - 240 - $320
+Milwaukee - Raleigh - 240 - $320
+Albuquerque - Miami - 270 - $350
+Tucson - Long Beach - 130 - $180
+Fresno - Virginia Beach - 290 - $370
+Mesa - Oakland - 90 - $130
+Sacramento - Minneapolis - 240 - $320
+Atlanta - Tulsa - 170 - $220
+Kansas City - Arlington - 180 - $240
+Colorado Springs - Tampa - 260 - $340
+Omaha - New Orleans - 260 - $340
+Raleigh - San Francisco - 270 - $350
+Miami - Portland - 300 - $380
+Long Beach - Charlotte - 210 - $280
+Virginia Beach - Seattle - 290 - $370
+Oakland - Boston - 260 - $340
+Minneapolis - El Paso - 270 - $350
+Tulsa - Detroit - 160 - $210
+Arlington - Nashville - 170 - $220
+Tampa - Portland - 260 - $340
+New Orleans - Memphis - 80 - $120
+Los Angeles - Oklahoma City - 190 - $250
+Jacksonville - Las Vegas - 240 - $320
+San Jose - Baltimore - 280 - $360
+Austin - Milwaukee - 220 - $290
+Chicago - Albuquerque - 230 - $300
+Houston - Tucson - 160 - $210
+Philadelphia - Fresno - 280 - $360
+San Antonio - Mesa - 140 - $190
+San Diego - Sacramento - 70 - $100
+Dallas - Atlanta - 180 - $240
+San Jose - Kansas City - 280 - $360
+Austin - Colorado Springs - 200 - $260
+Jacksonville - Omaha - 220 - $290
+Columbus - Miami - 240 - $320
+Indianapolis - Long Beach - 200 - $260
+Fort Worth - Virginia Beach - 220 - $290
+Charlotte - Oakland - 250 - $330
+Seattle - Minneapolis - 180 - $240
+Denver - Tulsa - 160 - $210
+Washington, D.C. - Arlington - 10 - $40
+Boston - Tampa - 230 - $300
+El Paso - New Orleans - 160 - $210
+Detroit - Las Vegas - 240 - $320
+Nashville - Louisville - 120 - $160
+Portland - Baltimore - 270 - $350
+Memphis - Milwaukee - 190 - $250
+Oklahoma City - Albuquerque - 150 - $200
+Las Vegas - Tucson - 80 - $120
+Louisville - Fresno - 260 - $340
+Baltimore - Mesa - 210 - $280
+Milwaukee - Sacramento - 260 - $340
+Albuquerque - Atlanta - 240 - $320
+Tucson - Kansas City - 240 - $320
+Fresno - Colorado Springs - 240 - $320
+Mesa - Omaha - 210 - $280
+Sacramento - Raleigh - 260 - $340
+Atlanta - Portland - 270 - $350
+Kansas City - Miami - 240 - $320
+Colorado Springs - Long Beach - 160 - $210
+Omaha - Virginia Beach - 240 - $320
+Raleigh - Oakland - 250 - $330
+Miami - Minneapolis - 280 - $360
+Long Beach - Tulsa - 170 - $220
+Virginia Beach - Detroit - 230 - $300
+Oakland - Las Vegas - 70 - $100
+Minneapolis - Louisville - 180 - $240
+Arlington - Milwaukee - 200 - $260
+Tampa - Albuquerque - 260 - $340
+New Orleans - Tucson - 140 - $190
+Los Angeles - Fresno - 60 - $90
+Jacksonville - Mesa - 220 - $290
+Dallas - Sacramento - 230 - $300
+San Jose - Atlanta - 280 - $360
+Austin - Kansas City - 210 - $280
+Chicago - Colorado Springs - 220 - $290
+Houston - Omaha - 200 - $260
+Philadelphia - Raleigh - 210 - $280
+San Antonio - Miami - 270 - $350
+San Diego - Long Beach - 30 - $60
+Dallas - Virginia Beach - 250 - $330
+San Jose - Milwaukee - 280 - $360
+Austin - Albuquerque - 180 - $240
+Jacksonville - Tucson - 240 - $320
+San Francisco - Fresno - 110 - $150
+Columbus - Mesa - 240 - $320
+Indianapolis - Sacramento - 260 - $340
+Fort Worth - Atlanta - 190 - $250
+Charlotte - Kansas City - 230 - $300
+Seattle - Colorado Springs - 220 - $290
+Denver - Omaha - 130 - $180
+Washington, D.C. - Raleigh - 40 - $70
+El Paso - Long Beach - 170 - $220
+Nashville - Oakland - 240 - $320
+Portland - Minneapolis - 190 - $250
+Memphis - Tulsa - 160 - $210
+Oklahoma City - Arlington - 120 - $160
+Las Vegas - Milwaukee - 240 - $320
+Louisville - Albuquerque - 220 - $290
+Baltimore - Tucson - 230 - $300
+Milwaukee - Fresno - 280 - $360
+Albuquerque - Mesa - 50 - $80
+Tucson - Sacramento - 120 - $160
+Fresno - Raleigh - 270 - $350
+Mesa - Miami - 280 - $360
+Sacramento - Long Beach - 60 - $90
+Atlanta - Virginia Beach - 240 - $320
+Kansas City - Oakland - 240 - $320
+Colorado Springs - Minneapolis - 240 - $320
+Omaha - Tulsa - 80 - $120
+Raleigh - Detroit - 230 - $300
+Miami - Nashville - 260 - $340
