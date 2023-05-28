@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GraphAdjacencyListTest {
-    private GraphAdjacencyList<Integer> graph;
+    private GraphAdjacencyList<String> graph;
 
     @BeforeEach
     void setUp() {
@@ -19,7 +19,7 @@ class GraphAdjacencyListTest {
         int vertices = 1;
 
         // Act
-        this.graph.addVertex(1);
+        this.graph.addVertex("New York City");
 
         // Assert
         assertEquals(vertices, this.graph.getVertices().size());
@@ -31,8 +31,8 @@ class GraphAdjacencyListTest {
         int vertices = 2;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
 
         // Assert
         assertEquals(vertices, this.graph.getVertices().size());
@@ -41,10 +41,10 @@ class GraphAdjacencyListTest {
     @Test
     void testAddAVertexTwice() {
         // Act
-        this.graph.addVertex(1);
+        this.graph.addVertex("New York City");
 
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> this.graph.addVertex(1));
+        assertThrows(IllegalArgumentException.class, () -> this.graph.addVertex("New York City"));
     }
 
     @Test
@@ -53,9 +53,9 @@ class GraphAdjacencyListTest {
         int edges = 1;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addEdge(1, 2, 1);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addEdge("New York City", "Los Angeles", 1);
 
         // Assert
         assertEquals(edges, this.graph.getVertices().get(0).getAdjacent().size());
@@ -73,11 +73,11 @@ class GraphAdjacencyListTest {
         int edges = 2;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addEdge(1, 2, 3);
-        this.graph.addEdge(1, 3, 2);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addEdge("New York City", "Los Angeles", 3);
+        this.graph.addEdge("New York City", "Chicago", 2);
 
         // Assert
         assertEquals(edges, this.graph.getVertices().get(0).getAdjacent().size());
@@ -94,12 +94,12 @@ class GraphAdjacencyListTest {
     @Test
     void testAddAnEdgeTwice() {
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addEdge(1, 2, 1);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addEdge("New York City", "Los Angeles", 1);
 
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> this.graph.addEdge(1, 2, 1));
+        assertThrows(IllegalArgumentException.class, () -> this.graph.addEdge("New York City", "Los Angeles", 1));
     }
 
     @Test
@@ -108,8 +108,8 @@ class GraphAdjacencyListTest {
         int vertices = 0;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.removeVertex(1);
+        this.graph.addVertex("New York City");
+        this.graph.removeVertex("New York City");
 
         // Assert
         assertEquals(vertices, this.graph.getVertices().size());
@@ -121,10 +121,10 @@ class GraphAdjacencyListTest {
         int vertices = 0;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.removeVertex(1);
-        this.graph.removeVertex(2);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.removeVertex("New York City");
+        this.graph.removeVertex("Los Angeles");
 
         // Assert
         assertEquals(vertices, this.graph.getVertices().size());
@@ -133,10 +133,10 @@ class GraphAdjacencyListTest {
     @Test
     void testRemoveAVertexDoesNotExist() {
         // Act
-        this.graph.addVertex(1);
+        this.graph.addVertex("New York City");
 
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> this.graph.removeVertex(2));
+        assertThrows(IllegalArgumentException.class, () -> this.graph.removeVertex("Los Angeles"));
     }
 
     @Test
@@ -145,10 +145,10 @@ class GraphAdjacencyListTest {
         int edges = 0;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addEdge(1, 2, 5);
-        this.graph.removeEdge(1, 2);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addEdge("New York City", "Los Angeles", 5);
+        this.graph.removeEdge("New York City", "Los Angeles");
 
         // Assert
         assertEquals(edges, this.graph.getVertices().get(0).getAdjacent().size());
@@ -161,13 +161,13 @@ class GraphAdjacencyListTest {
         int edges = 0;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addEdge(1, 2, 5);
-        this.graph.addEdge(1, 3, 2);
-        this.graph.removeEdge(1, 2);
-        this.graph.removeEdge(1, 3);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addEdge("New York City", "Los Angeles", 5);
+        this.graph.addEdge("New York City", "Chicago", 2);
+        this.graph.removeEdge("New York City", "Los Angeles");
+        this.graph.removeEdge("New York City", "Chicago");
 
         // Assert
         assertEquals(edges, this.graph.getVertices().get(0).getAdjacent().size());
@@ -178,11 +178,11 @@ class GraphAdjacencyListTest {
     @Test
     void testRemoveAnEdgeDoesNotExist() {
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
 
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> this.graph.removeEdge(1, 2));
+        assertThrows(IllegalArgumentException.class, () -> this.graph.removeEdge("New York City", "Los Angeles"));
     }
 
     @Test
@@ -191,19 +191,19 @@ class GraphAdjacencyListTest {
         int distance = 3;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        this.graph.addEdge(1, 2, 4);
-        this.graph.addEdge(1, 3, 2);
-        this.graph.addEdge(2, 4, 1);
-        this.graph.addEdge(3, 4, 5);
-        this.graph.addEdge(4, 5, 3);
+        this.graph.addEdge("New York City", "Los Angeles", 4);
+        this.graph.addEdge("New York City", "Chicago", 2);
+        this.graph.addEdge("Los Angeles", "Denver", 1);
+        this.graph.addEdge("Chicago", "Denver", 5);
+        this.graph.addEdge("Denver", "Miami", 3);
 
-        this.graph.BFS(1);
+        this.graph.BFS("New York City");
 
         // Assert
         assertEquals(distance, this.graph.getVertices().get(4).getDistance());
@@ -212,10 +212,10 @@ class GraphAdjacencyListTest {
     @Test
     void testBFSWithAVertexDoesNotExist() {
         // Act
-        this.graph.addVertex(1);
+        this.graph.addVertex("New York City");
 
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> this.graph.BFS(2));
+        assertThrows(IllegalArgumentException.class, () -> this.graph.BFS("Los Angeles"));
     }
 
     @Test
@@ -224,20 +224,20 @@ class GraphAdjacencyListTest {
         int distance = this.graph.isDirected() ? 3 : 1;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        this.graph.addEdge(1, 2, 4);
-        this.graph.addEdge(1, 3, 2);
-        this.graph.addEdge(2, 4, 1);
-        this.graph.addEdge(3, 4, 5);
-        this.graph.addEdge(4, 5, 3);
-        this.graph.addEdge(5, 1, 3);
+        this.graph.addEdge("New York City", "Los Angeles", 4);
+        this.graph.addEdge("New York City", "Chicago", 2);
+        this.graph.addEdge("Los Angeles", "Denver", 1);
+        this.graph.addEdge("Chicago", "Denver", 5);
+        this.graph.addEdge("Denver", "Miami", 3);
+        this.graph.addEdge("Miami", "New York City", 3);
 
-        this.graph.BFS(1);
+        this.graph.BFS("New York City");
 
         // Assert
         assertEquals(distance, this.graph.getVertices().get(4).getDistance());
@@ -250,19 +250,19 @@ class GraphAdjacencyListTest {
         int finishingTime = this.graph.isDirected() ? 6 : 8;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        this.graph.addEdge(1, 2, 4);
-        this.graph.addEdge(1, 3, 2);
-        this.graph.addEdge(2, 4, 1);
-        this.graph.addEdge(3, 4, 5);
-        this.graph.addEdge(4, 5, 3);
+        this.graph.addEdge("New York City", "Los Angeles", 4);
+        this.graph.addEdge("New York City", "Chicago", 2);
+        this.graph.addEdge("Los Angeles", "Denver", 1);
+        this.graph.addEdge("Chicago", "Denver", 5);
+        this.graph.addEdge("Denver", "Miami", 3);
 
-        this.graph.DFS(1);
+        this.graph.DFS("New York City");
 
         // Assert
         assertEquals(discoveryTime, this.graph.getVertices().get(3).getDiscoveryTime());
@@ -272,10 +272,10 @@ class GraphAdjacencyListTest {
     @Test
     void testDFSWithAVertexDoesNotExist() {
         // Act
-        this.graph.addVertex(1);
+        this.graph.addVertex("New York City");
 
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> this.graph.DFS(2));
+        assertThrows(IllegalArgumentException.class, () -> this.graph.DFS("Los Angeles"));
     }
 
     @Test
@@ -285,20 +285,20 @@ class GraphAdjacencyListTest {
         int finishingTime = this.graph.isDirected() ? 6 : 8;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        this.graph.addEdge(1, 2, 4);
-        this.graph.addEdge(1, 3, 2);
-        this.graph.addEdge(2, 4, 1);
-        this.graph.addEdge(3, 4, 5);
-        this.graph.addEdge(4, 5, 3);
-        this.graph.addEdge(5, 1, 3);
+        this.graph.addEdge("New York City", "Los Angeles", 4);
+        this.graph.addEdge("New York City", "Chicago", 2);
+        this.graph.addEdge("Los Angeles", "Denver", 1);
+        this.graph.addEdge("Chicago", "Denver", 5);
+        this.graph.addEdge("Denver", "Miami", 3);
+        this.graph.addEdge("Miami", "New York City", 3);
 
-        this.graph.DFS(1);
+        this.graph.DFS("New York City");
 
         // Assert
         assertEquals(discoveryTime, this.graph.getVertices().get(3).getDiscoveryTime());
@@ -311,19 +311,19 @@ class GraphAdjacencyListTest {
         int distance = 5;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        this.graph.addEdge(1, 2, 4);
-        this.graph.addEdge(1, 3, 2);
-        this.graph.addEdge(2, 4, 1);
-        this.graph.addEdge(3, 4, 5);
-        this.graph.addEdge(4, 5, 3);
+        this.graph.addEdge("New York City", "Los Angeles", 4);
+        this.graph.addEdge("New York City", "Chicago", 2);
+        this.graph.addEdge("Los Angeles", "Denver", 1);
+        this.graph.addEdge("Chicago", "Denver", 5);
+        this.graph.addEdge("Denver", "Miami", 3);
 
-        this.graph.dijkstra(1);
+        this.graph.dijkstra("New York City");
 
         // Assert
         assertEquals(distance, this.graph.getVertices().get(3).getDistance());
@@ -332,10 +332,10 @@ class GraphAdjacencyListTest {
     @Test
     void testDijkstraWithAVertexDoesNotExist() {
         // Act
-        this.graph.addVertex(1);
+        this.graph.addVertex("New York City");
 
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> this.graph.dijkstra(2));
+        assertThrows(IllegalArgumentException.class, () -> this.graph.dijkstra("Los Angeles"));
     }
 
     @Test
@@ -344,20 +344,20 @@ class GraphAdjacencyListTest {
         int distance = this.graph.isDirected() ? 8 : 3;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        this.graph.addEdge(1, 2, 4);
-        this.graph.addEdge(1, 3, 2);
-        this.graph.addEdge(2, 4, 1);
-        this.graph.addEdge(3, 4, 5);
-        this.graph.addEdge(4, 5, 3);
-        this.graph.addEdge(5, 1, 3);
+        this.graph.addEdge("New York City", "Los Angeles", 4);
+        this.graph.addEdge("New York City", "Chicago", 2);
+        this.graph.addEdge("Los Angeles", "Denver", 1);
+        this.graph.addEdge("Chicago", "Denver", 5);
+        this.graph.addEdge("Denver", "Miami", 3);
+        this.graph.addEdge("Miami", "New York City", 3);
 
-        this.graph.dijkstra(1);
+        this.graph.dijkstra("New York City");
 
         // Assert
         assertEquals(distance, this.graph.getVertices().get(4).getDistance());
@@ -366,23 +366,23 @@ class GraphAdjacencyListTest {
     @Test
     void testFloydWarshall() {
         // Arrange
-        int previous = 4;
+        String previous = "Denver";
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        graph.addEdge(1, 2, 2);
-        graph.addEdge(1, 3, 4);
-        graph.addEdge(2, 4, 7);
-        graph.addEdge(3, 4, 3);
-        graph.addEdge(4, 5, 1);
-        graph.addEdge(1, 5, 20);
+        graph.addEdge("New York City", "Los Angeles", 2);
+        graph.addEdge("New York City", "Chicago", 4);
+        graph.addEdge("Los Angeles", "Denver", 7);
+        graph.addEdge("Chicago", "Denver", 3);
+        graph.addEdge("Denver", "Miami", 1);
+        graph.addEdge("New York City", "Miami", 20);
 
-        Vertex<Integer>[][] prevMatrix = this.graph.floydWarshall();
+        Vertex<String>[][] prevMatrix = this.graph.floydWarshall();
 
         // Assert
         assertEquals(previous, prevMatrix[0][4].getValue());
@@ -391,23 +391,23 @@ class GraphAdjacencyListTest {
     @Test
     void testFloydWarshallWithWeightedNegativeEdges() {
         // Arrange
-        int previous = 1;
+        String previous = "New York City";
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        graph.addEdge(1, 2, 2);
-        graph.addEdge(1, 3, -4);
-        graph.addEdge(2, 4, 7);
-        graph.addEdge(3, 4, 0);
-        graph.addEdge(4, 5, 1);
-        graph.addEdge(1, 5, -10);
+        graph.addEdge("New York City", "Los Angeles", 2);
+        graph.addEdge("New York City", "Chicago", -4);
+        graph.addEdge("Los Angeles", "Denver", 7);
+        graph.addEdge("Chicago", "Denver", 0);
+        graph.addEdge("Denver", "Miami", 1);
+        graph.addEdge("New York City", "Miami", -10);
 
-        Vertex<Integer>[][] prevMatrix = this.graph.floydWarshall();
+        Vertex<String>[][] prevMatrix = this.graph.floydWarshall();
 
         // Assert
         assertEquals(previous, prevMatrix[0][4].getValue());
@@ -416,9 +416,9 @@ class GraphAdjacencyListTest {
     @Test
     void testFloydWarshallWithAVertex() {
         // Act
-        this.graph.addVertex(1);
+        this.graph.addVertex("New York City");
 
-        Vertex<Integer>[][] prevMatrix = this.graph.floydWarshall();
+        Vertex<String>[][] prevMatrix = this.graph.floydWarshall();
 
         // Assert
         assertNull(prevMatrix[0][0]);
@@ -430,19 +430,19 @@ class GraphAdjacencyListTest {
         int weight = 1;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        this.graph.addEdge(1, 2, 4);
-        this.graph.addEdge(1, 3, 2);
-        this.graph.addEdge(2, 4, 1);
-        this.graph.addEdge(3, 4, 5);
-        this.graph.addEdge(5, 2, 1);
+        this.graph.addEdge("New York City", "Los Angeles", 4);
+        this.graph.addEdge("New York City", "Chicago", 2);
+        this.graph.addEdge("Los Angeles", "Denver", 1);
+        this.graph.addEdge("Chicago", "Denver", 5);
+        this.graph.addEdge("Miami", "Los Angeles", 1);
 
-        this.graph.prim(5);
+        this.graph.prim("Miami");
 
         // Assert
         assertEquals(weight, this.graph.getVertices().get(3).getDistance());
@@ -452,10 +452,10 @@ class GraphAdjacencyListTest {
     @Test
     void testPrimWithAVertexDoesNotExist() {
         // Act
-        this.graph.addVertex(1);
+        this.graph.addVertex("New York City");
 
         // Assert
-        assertThrows(IllegalArgumentException.class, () -> this.graph.prim(2));
+        assertThrows(IllegalArgumentException.class, () -> this.graph.prim("Los Angeles"));
     }
 
     @Test
@@ -464,19 +464,19 @@ class GraphAdjacencyListTest {
         int weight = 1;
 
         // Act
-        this.graph.addVertex(1);
-        this.graph.addVertex(2);
-        this.graph.addVertex(3);
-        this.graph.addVertex(4);
-        this.graph.addVertex(5);
+        this.graph.addVertex("New York City");
+        this.graph.addVertex("Los Angeles");
+        this.graph.addVertex("Chicago");
+        this.graph.addVertex("Denver");
+        this.graph.addVertex("Miami");
 
-        this.graph.addEdge(1, 2, -1);
-        this.graph.addEdge(1, 3, 2);
-        this.graph.addEdge(2, 4, 1);
-        this.graph.addEdge(3, 4, 5);
-        this.graph.addEdge(5, 2, -3);
+        this.graph.addEdge("New York City", "Los Angeles", -1);
+        this.graph.addEdge("New York City", "Denver", 2);
+        this.graph.addEdge("Los Angeles", "Denver", 1);
+        this.graph.addEdge("Denver", "Denver", 5);
+        this.graph.addEdge("Miami", "Los Angeles", -3);
 
-        this.graph.prim(5);
+        this.graph.prim("Miami");
 
         // Assert
         assertEquals(weight, this.graph.getVertices().get(3).getDistance());
