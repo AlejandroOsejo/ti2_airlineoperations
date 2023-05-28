@@ -270,7 +270,7 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         return this.vertices;
     }
 
-    public boolean isConected() {
+    public boolean isConnected() {
         for (Vertex<T> vertex : this.vertices) {
             if (vertex.getAdjacent().isEmpty()) {
                 return false;
