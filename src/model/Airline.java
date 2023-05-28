@@ -1,8 +1,11 @@
 package model;
 
 import graph.GraphAdjacencyList;
+import graph.Vertex;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Airline {
     private final GraphAdjacencyList<String> citiesGraphAL;
@@ -39,5 +42,24 @@ public class Airline {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void optimize() {
+        this.citiesGraphAL.prim("New York City");
+    }
+
+    public ArrayList<Vertex<String>> getShortestPath(String source, String destination) {
+        Map<Vertex<String>, Vertex<String>> dijkstra = this.citiesGraphAL.dijkstra(source);
+        ArrayList<Vertex<String>> shortestPath = new ArrayList<>();
+        Vertex<String> prev = dijkstra.get(this.citiesGraphAL.getVertex(destination));
+        while (prev != null) {
+            shortestPath.add(prev);
+            prev = dijkstra.get(prev);
+        }
+        return shortestPath;
+    }
+
+    public ArrayList<Vertex<String>> getVertices() {
+        return this.citiesGraphAL.getVertices();
     }
 }
