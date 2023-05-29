@@ -27,7 +27,10 @@ public class AirlineGUI {
 
     // Main
     @FXML
-    private Button btnOptimize;
+    private Button btnOptimizeByTime;
+
+    @FXML
+    private Button btnOptimizeByCost;
 
     @FXML
     private Button btnSearch;
@@ -74,7 +77,12 @@ public class AirlineGUI {
     }
 
     @FXML
-    private void handleOptimize(ActionEvent event) {
+    private void handleOptimizeByTime(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void handleOptimizeByCost(ActionEvent event) {
 
     }
 

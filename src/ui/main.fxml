@@ -39,10 +39,10 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </VBox>
-            <VBox alignment="TOP_CENTER" minHeight="-Infinity" prefHeight="77.0" prefWidth="250.0">
+            <VBox alignment="TOP_CENTER" minHeight="-Infinity" prefHeight="144.0" prefWidth="250.0" spacing="15.0">
                <children>
                   <Separator prefWidth="200.0" />
-                  <Button fx:id="btnOptimize" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleOptimize" style="-fx-background-color: #36a1ff;" text="Optimize connections" textFill="WHITE">
+                  <Button fx:id="btnOptimizeByTime" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleOptimizeByTime" style="-fx-background-color: #36a1ff;" text="Optimize by time" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -50,8 +50,16 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnOptimizeByCost" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleOptimizeByCost" style="-fx-background-color: #36a1ff;" text="Optimize by cost" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
                <VBox.margin>
