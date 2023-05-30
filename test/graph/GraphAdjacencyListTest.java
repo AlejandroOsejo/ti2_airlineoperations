@@ -382,7 +382,7 @@ class GraphAdjacencyListTest {
         graph.addEdge("Denver", "Miami", 1);
         graph.addEdge("New York City", "Miami", 20);
 
-        Vertex<String>[][] prevMatrix = this.graph.floydWarshall();
+        Vertex_List<String>[][] prevMatrix = this.graph.floydWarshall();
 
         // Assert
         assertEquals(previous, prevMatrix[0][4].getValue());
@@ -407,7 +407,7 @@ class GraphAdjacencyListTest {
         graph.addEdge("Denver", "Miami", 1);
         graph.addEdge("New York City", "Miami", -10);
 
-        Vertex<String>[][] prevMatrix = this.graph.floydWarshall();
+        Vertex_List<String>[][] prevMatrix = this.graph.floydWarshall();
 
         // Assert
         assertEquals(previous, prevMatrix[0][4].getValue());
@@ -418,7 +418,7 @@ class GraphAdjacencyListTest {
         // Act
         this.graph.addVertex("New York City");
 
-        Vertex<String>[][] prevMatrix = this.graph.floydWarshall();
+        Vertex_List<String>[][] prevMatrix = this.graph.floydWarshall();
 
         // Assert
         assertNull(prevMatrix[0][0]);

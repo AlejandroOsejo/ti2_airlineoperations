@@ -1,19 +1,14 @@
 package graph;
 
-import java.util.*;
-
 public class Vertex<T> {
     private final T value;
     private String color;
     private int distance;
     private int discoveryTime;
     private int finishingTime;
-    private Vertex<T> parent;
-    private final Map<Vertex<T>, Integer> adjacent;
 
     public Vertex(T value) {
         this.value = value;
-        this.adjacent = new HashMap<>();
     }
 
     public T getValue() {
@@ -52,25 +47,6 @@ public class Vertex<T> {
         this.finishingTime = finishingTime;
     }
 
-    public Vertex<T> getParent() {
-        return this.parent;
-    }
-
-    public void setParent(Vertex<T> parent) {
-        this.parent = parent;
-    }
-
-    public void addAdjacent(Vertex<T> vertex, int weight) {
-        this.adjacent.put(vertex, weight);
-    }
-
-    public void removeAdjacent(Vertex<T> vertex) {
-        this.adjacent.remove(vertex);
-    }
-
-    public Map<Vertex<T>, Integer> getAdjacent() {
-        return this.adjacent;
-    }
 
     @Override
     public String toString() {
