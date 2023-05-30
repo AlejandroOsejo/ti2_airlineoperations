@@ -4,13 +4,13 @@ import java.util.*;
 
 public class GraphAdjacencyMatrix<T> implements IGraph<T> {
     private final ArrayList<Vertex_Matrix<T>> vertices;
-    private final int[][] adjacencyMatrix;
+    private int[][] adjacencyMatrix;
     private final boolean directed;
     private int time;
 
     public GraphAdjacencyMatrix(boolean directed) {
         this.vertices = new ArrayList<>();
-        this.adjacencyMatrix = new int[vertices.size()][vertices.size()];
+        this.adjacencyMatrix = new int[0][0];
         this.directed = directed;
     }
 
@@ -21,6 +21,14 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         }
 
         vertices.add(new Vertex_Matrix<>(vertex));
+
+        int[][] newAdjacencyMatrix = new int[vertices.size()][vertices.size()];
+
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            System.arraycopy(adjacencyMatrix[i], 0, newAdjacencyMatrix[i], 0, adjacencyMatrix[i].length);
+        }
+
+        this.adjacencyMatrix = newAdjacencyMatrix;
     }
 
     @Override
@@ -30,6 +38,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
         if (sourceIndex == -1 || destinationIndex == -1) {
             throw new IllegalArgumentException("Vertex does not exist " + source + " " + destination);
+        }
+
+        if (adjacencyMatrix[sourceIndex][destinationIndex] != 0) {
+            throw new IllegalArgumentException("Edge already exists");
         }
 
         adjacencyMatrix[sourceIndex][destinationIndex] = weight;
@@ -53,6 +65,16 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
             adjacencyMatrix[vertexIndex][i] = 0;
             adjacencyMatrix[i][vertexIndex] = 0;
         }
+
+        int[][] newAdjacencyMatrix = new int[vertices.size()][vertices.size()];
+
+        for (int i = 0; i < vertices.size(); i++) {
+            for (int j = 0; j < vertices.size(); j++) {
+                newAdjacencyMatrix[i][j] = adjacencyMatrix[i][j];
+            }
+        }
+
+        this.adjacencyMatrix = newAdjacencyMatrix;
     }
 
     @Override
@@ -62,6 +84,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
         if (vertex1Index == -1 || vertex2Index == -1) {
             throw new IllegalArgumentException("Vertex does not exist " + vertex1 + " " + vertex2);
+        }
+
+        if (adjacencyMatrix[vertex1Index][vertex2Index] == 0) {
+            throw new IllegalArgumentException("Edge does not exist");
         }
 
         adjacencyMatrix[vertex1Index][vertex2Index] = 0;
@@ -130,7 +156,7 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
     private void DFSVisit(Vertex_Matrix<T> start) {
         this.time++;
-        start.setDistance(this.time);
+        start.setDiscoveryTime(this.time);
         start.setColor("gray");
 
         for (int i = 0; i < vertices.size(); i++) {
@@ -145,7 +171,7 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
         start.setColor("black");
         this.time++;
-        start.setDistance(this.time);
+        start.setFinishingTime(this.time);
     }
 
     @Override
@@ -162,7 +188,7 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
         s.setDistance(0);
 
-        PriorityQueue<Vertex_Matrix<T>> queue = new PriorityQueue<>(vertices);
+        PriorityQueue<Vertex_Matrix<T>> queue = new PriorityQueue<>(Comparator.comparingInt(Vertex_Matrix::getDistance));
 
         while (!queue.isEmpty()) {
             Vertex_Matrix<T> u = queue.poll();
@@ -188,10 +214,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
     }
 
     @Override
-    public Vertex<T>[][] floydWarshall() {
+    public Vertex_Matrix<T>[][] floydWarshall() {
         int n = vertices.size();
         int[][] dist = new int[n][n];
-        Vertex<T>[][] prev = new Vertex[n][n];
+        Vertex_Matrix<T>[][] prev = new Vertex_Matrix[n][n];
 
         for (int i = 0; i < n; i++) {
             dist[i] = adjacencyMatrix[i].clone();
@@ -204,7 +230,7 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
         for (int k = 0; k < n; k++) {
             int[][] dk = new int[n][n];
-            Vertex<T>[][] pk = new Vertex[n][n];
+            Vertex_Matrix<T>[][] pk = new Vertex_Matrix[n][n];
 
             for (int i = 0; i < n; i++) {
                 dk[i] = dist[i].clone();
@@ -247,7 +273,7 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
         s.setDistance(0);
 
-        PriorityQueue<Vertex_Matrix<T>> queue = new PriorityQueue<>(vertices);
+        PriorityQueue<Vertex_Matrix<T>> queue = new PriorityQueue<>(Comparator.comparingInt(Vertex_Matrix::getDistance));
 
         while (!queue.isEmpty()) {
             Vertex_Matrix<T> u = queue.poll();
@@ -262,12 +288,13 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
                     }
                 }
             }
+            u.setColor("black");
         }
     }
 
     private int getIndex(T vertex) {
         for (int i = 0; i < vertices.size(); i++) {
-            if (vertices.get(i).equals(vertex)) {
+            if (vertices.get(i).getValue().equals(vertex)) {
                 return i;
             }
         }
@@ -276,7 +303,7 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
     public Vertex_Matrix<T> getVertex(T vertex) {
         for (Vertex_Matrix<T> v : vertices) {
-            if (v.equals(vertex)) {
+            if (v.getValue().equals(vertex)) {
                 return v;
             }
         }
@@ -298,5 +325,9 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
             }
         }
         return true;
+    }
+
+    public int[][] getAdjacencyMatrix() {
+        return this.adjacencyMatrix;
     }
 }
