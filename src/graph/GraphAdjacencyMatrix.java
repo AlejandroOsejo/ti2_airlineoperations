@@ -1,12 +1,12 @@
 package graph;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 public class GraphAdjacencyMatrix<T> implements IGraph<T> {
     private final ArrayList<Vertex_Matrix<T>> vertices;
     private final int[][] adjacencyMatrix;
     private final boolean directed;
+    private int time;
 
     public GraphAdjacencyMatrix(boolean directed) {
         this.vertices = new ArrayList<>();
@@ -16,7 +16,11 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
     @Override
     public void addVertex(T vertex) {
-        throw new UnsupportedOperationException("No se pueden añadir vértices directamente a la matriz de adyacencia. Inicializa la matriz con todos los vértices a la vez.");
+        if (getVertex(vertex) != null) {
+            throw new IllegalArgumentException("Vertex already exists " + vertex);
+        }
+
+        vertices.add(new Vertex_Matrix<>(vertex));
     }
 
     @Override
@@ -25,7 +29,7 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         int destinationIndex = getIndex(destination);
 
         if (sourceIndex == -1 || destinationIndex == -1) {
-            throw new IllegalArgumentException("Uno o ambos vértices no existen en el grafo.");
+            throw new IllegalArgumentException("Vertex does not exist " + source + " " + destination);
         }
 
         adjacencyMatrix[sourceIndex][destinationIndex] = weight;
@@ -37,7 +41,18 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
     @Override
     public void removeVertex(T vertex) {
-        throw new UnsupportedOperationException("No se puede eliminar un vértice directamente de la matriz de adyacencia. Considera crear una nueva matriz en su lugar.");
+        int vertexIndex = getIndex(vertex);
+
+        if (vertexIndex == -1) {
+            throw new IllegalArgumentException("Vertex does not exist");
+        }
+
+        vertices.remove(vertexIndex);
+
+        for (int i = 0; i < vertices.size(); i++) {
+            adjacencyMatrix[vertexIndex][i] = 0;
+            adjacencyMatrix[i][vertexIndex] = 0;
+        }
     }
 
     @Override
@@ -46,7 +61,7 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         int vertex2Index = getIndex(vertex2);
 
         if (vertex1Index == -1 || vertex2Index == -1) {
-            throw new IllegalArgumentException("Uno o ambos vértices no existen en el grafo.");
+            throw new IllegalArgumentException("Vertex does not exist " + vertex1 + " " + vertex2);
         }
 
         adjacencyMatrix[vertex1Index][vertex2Index] = 0;
@@ -58,29 +73,196 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
     @Override
     public void BFS(T source) {
-        // Implementar BFS
+        Vertex_Matrix<T> vertex = getVertex(source);
+
+        if (vertex == null) {
+            throw new IllegalArgumentException("Vertex does not exist");
+        }
+
+        for (Vertex_Matrix<T> v : vertices) {
+            if (!v.equals(vertex)) {
+                v.setColor("White");
+                v.setDistance(Integer.MAX_VALUE);
+                v.setParent(null);
+            }
+        }
+
+        vertex.setColor("Gray");
+        vertex.setDistance(0);
+        vertex.setParent(null);
+
+        Queue<Vertex_Matrix<T>> queue = new LinkedList<>();
+        queue.offer(vertex);
+
+        while (!queue.isEmpty()) {
+            Vertex_Matrix<T> u = queue.poll();
+            for (int i = 0; i < vertices.size(); i++) {
+                if (adjacencyMatrix[vertices.indexOf(u)][i] != 0) {
+                    Vertex_Matrix<T> v = vertices.get(i);
+                    if (v.getColor().equals("White")) {
+                        v.setColor("Gray");
+                        v.setDistance(u.getDistance() + 1);
+                        v.setParent(u);
+                        queue.offer(v);
+                    }
+                }
+            }
+            u.setColor("Black");
+        }
     }
 
     @Override
     public void DFS(T source) {
-        // Implementar DFS
+        Vertex_Matrix<T> s = getVertex(source);
+        if (s == null) {
+            throw new IllegalArgumentException("Vertex does not exist");
+        }
+
+        for (Vertex_Matrix<T> u : this.vertices) {
+            u.setColor("white");
+            u.setParent(null);
+        }
+
+        this.time = 0;
+
+        DFSVisit(s);
+    }
+
+    private void DFSVisit(Vertex_Matrix<T> start) {
+        this.time++;
+        start.setDistance(this.time);
+        start.setColor("gray");
+
+        for (int i = 0; i < vertices.size(); i++) {
+            if (adjacencyMatrix[vertices.indexOf(start)][i] != 0) {
+                Vertex_Matrix<T> v = vertices.get(i);
+                if (v.getColor().equals("white")) {
+                    v.setParent(start);
+                    DFSVisit(v);
+                }
+            }
+        }
+
+        start.setColor("black");
+        this.time++;
+        start.setDistance(this.time);
     }
 
     @Override
     public Map<Vertex<T>, Vertex<T>> dijkstra(T source) {
-        // Implementar Dijkstra
-        return null;
+        Vertex_Matrix<T> s = getVertex(source);
+        if (s == null) {
+            throw new IllegalArgumentException("Vertex does not exist");
+        }
+
+        for (Vertex_Matrix<T> u : this.vertices) {
+            u.setDistance(Integer.MAX_VALUE);
+            u.setParent(null);
+        }
+
+        s.setDistance(0);
+
+        PriorityQueue<Vertex_Matrix<T>> queue = new PriorityQueue<>(vertices);
+
+        while (!queue.isEmpty()) {
+            Vertex_Matrix<T> u = queue.poll();
+            for (int i = 0; i < vertices.size(); i++) {
+                if (adjacencyMatrix[vertices.indexOf(u)][i] != 0) {
+                    Vertex_Matrix<T> v = vertices.get(i);
+                    if (v.getDistance() > u.getDistance() + adjacencyMatrix[vertices.indexOf(u)][i]) {
+                        v.setDistance(u.getDistance() + adjacencyMatrix[vertices.indexOf(u)][i]);
+                        v.setParent(u);
+                        queue.remove(v);
+                        queue.offer(v);
+                    }
+                }
+            }
+        }
+
+        Map<Vertex<T>, Vertex<T>> map = new HashMap<>();
+        for (Vertex_Matrix<T> v : vertices) {
+            map.put(v, v.getParent());
+        }
+
+        return map;
     }
 
     @Override
     public Vertex<T>[][] floydWarshall() {
-        // Implementar Floyd-Warshall
-        return null;
+        int n = vertices.size();
+        int[][] dist = new int[n][n];
+        Vertex<T>[][] prev = new Vertex[n][n];
+
+        for (int i = 0; i < n; i++) {
+            dist[i] = adjacencyMatrix[i].clone();
+            for (int j = 0; j < n; j++) {
+                if (dist[i][j] != 0) {
+                    prev[i][j] = vertices.get(i);
+                }
+            }
+        }
+
+        for (int k = 0; k < n; k++) {
+            int[][] dk = new int[n][n];
+            Vertex<T>[][] pk = new Vertex[n][n];
+
+            for (int i = 0; i < n; i++) {
+                dk[i] = dist[i].clone();
+                pk[i] = prev[i].clone();
+            }
+
+            for (int i = 0; i < n; i++) {
+                if (i == k || dk[i][k] == 0) {
+                    continue;
+                }
+                for (int j = 0; j < n; j++) {
+                    if (j == k || dk[k][j] == 0) {
+                        continue;
+                    }
+                    if (dk[i][j] == 0 || dk[i][j] > dk[i][k] + dk[k][j]) {
+                        dk[i][j] = dk[i][k] + dk[k][j];
+                        pk[i][j] = pk[k][j];
+                    }
+                }
+            }
+
+            dist = dk;
+            prev = pk;
+        }
+
+        return prev;
     }
 
     @Override
     public void prim(T source) {
-        // Implementar Prim
+        Vertex_Matrix<T> s = getVertex(source);
+        if (s == null) {
+            throw new IllegalArgumentException("Vertex does not exist");
+        }
+
+        for (Vertex_Matrix<T> u : this.vertices) {
+            u.setDistance(Integer.MAX_VALUE);
+            u.setParent(null);
+        }
+
+        s.setDistance(0);
+
+        PriorityQueue<Vertex_Matrix<T>> queue = new PriorityQueue<>(vertices);
+
+        while (!queue.isEmpty()) {
+            Vertex_Matrix<T> u = queue.poll();
+            for (int i = 0; i < vertices.size(); i++) {
+                if (adjacencyMatrix[vertices.indexOf(u)][i] != 0) {
+                    Vertex_Matrix<T> v = vertices.get(i);
+                    if (queue.contains(v) && adjacencyMatrix[vertices.indexOf(u)][i] < v.getDistance()) {
+                        v.setDistance(adjacencyMatrix[vertices.indexOf(u)][i]);
+                        v.setParent(u);
+                        queue.remove(v);
+                        queue.offer(v);
+                    }
+                }
+            }
+        }
     }
 
     private int getIndex(T vertex) {
@@ -90,5 +272,31 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
             }
         }
         return -1;
+    }
+
+    public Vertex_Matrix<T> getVertex(T vertex) {
+        for (Vertex_Matrix<T> v : vertices) {
+            if (v.equals(vertex)) {
+                return v;
+            }
+        }
+        return null;
+    }
+
+    public boolean isDirected() {
+        return this.directed;
+    }
+
+    public ArrayList<Vertex_Matrix<T>> getVertices() {
+        return this.vertices;
+    }
+
+    public boolean isConnected() {
+        for (Vertex_Matrix<T> v : vertices) {
+            if (v.getDistance() == Integer.MAX_VALUE) {
+                return false;
+            }
+        }
+        return true;
     }
 }
