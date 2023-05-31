@@ -1,9 +1,6 @@
 package model;
 
-import graph.GraphAdjacencyList;
-import graph.GraphAdjacencyMatrix;
-import graph.Vertex;
-import graph.Vertex_List;
+import graph.*;
 
 import java.io.*;
 import java.util.*;
@@ -17,13 +14,16 @@ public class Airline {
         this.citiesGraphAM = new GraphAdjacencyMatrix<>(false);
     }
 
-    public void loadCities() {
+    public void loadCities(int graphOption) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("resources\\cities.txt"));
             String line;
             while ((line = br.readLine()) != null) {
-                this.citiesGraphAL.addVertex(line);
-                this.citiesGraphAM.addVertex(line);
+                if (graphOption == 1) {
+                    this.citiesGraphAL.addVertex(line);
+                } else {
+                    this.citiesGraphAM.addVertex(line);
+                }
             }
             br.close();
         } catch (IOException e) {
@@ -65,19 +65,70 @@ public class Airline {
         }
     }
 
-    public void optimize() {
-        this.citiesGraphAL.prim("New York City");
+    public void showCities(int graphOption) {
+        if (graphOption == 1) {
+            ArrayList<Vertex_List<String>> vertices = this.citiesGraphAL.getVertices();
+            for (Vertex_List<String> vertex : vertices) {
+                System.out.println(vertex.getValue());
+            }
+        } else {
+            ArrayList<Vertex_Matrix<String>> vertices = this.citiesGraphAM.getVertices();
+            for (Vertex_Matrix<String> vertex : vertices) {
+                System.out.println(vertex.getValue());
+            }
+        }
     }
 
-    public ArrayList<Vertex_List<String>> getShortestPath(String source, String destination) {
-        Map<Vertex<String>, Vertex<String>> dijkstra = this.citiesGraphAL.dijkstra(source);
-        ArrayList<Vertex_List<String>> shortestPath = new ArrayList<>();
-        Vertex<String> prev = dijkstra.get(this.citiesGraphAL.getVertex(destination));
-        while (prev != null) {
-            shortestPath.add((Vertex_List<String>) prev);
-            prev = dijkstra.get(prev);
+    public void showConnections(int graphOption) {
+        if (graphOption == 1) {
+            ArrayList<Vertex_List<String>> vertices = this.citiesGraphAL.getVertices();
+            for (Vertex_List<String> vertex : vertices) {
+                System.out.println(vertex.getValue() + " " + vertex.getDistance() + " " + vertex.getParent());
+            }
+        } else {
+            ArrayList<Vertex_Matrix<String>> vertices = this.citiesGraphAM.getVertices();
+            for (Vertex_Matrix<String> vertex : vertices) {
+                System.out.println(vertex.getValue() + " " + vertex.getDistance() + " " + vertex.getParent());
+            }
         }
-        return shortestPath;
+    }
+
+    public void optimize(int weightOption, int graphOption) {
+        System.out.println("\nMinimum spanning tree from New York City: \n");
+        if (graphOption == 1) {
+            this.citiesGraphAL.prim("New York City");
+            for (Vertex_List<String> vertex : citiesGraphAL.getVertices()) {
+                if (weightOption == 0) {
+                    System.out.println(vertex.getParent() + " --> " + vertex.getDistance() + " minutes --> " + vertex.getValue());
+                } else {
+                    System.out.println(vertex.getParent() + " --> $" + vertex.getDistance() + " --> " + vertex.getValue());
+                }
+            }
+        } else {
+            this.citiesGraphAM.prim("New York City");
+            for (Vertex_Matrix<String> vertex : citiesGraphAM.getVertices()) {
+                if (weightOption == 0) {
+                    System.out.println(vertex.getParent() + " --> " + vertex.getDistance() + " minutes --> " + vertex.getValue());
+                } else {
+                    System.out.println(vertex.getParent() + " --> $" + vertex.getDistance() + " --> " + vertex.getValue());
+                }
+            }
+        }
+    }
+
+    public void getShortestPath(String source, String destination, int graphOption) {
+        System.out.println("\nShortest path from " + source + " to " + destination + ": \n");
+        if (graphOption == 1) {
+            Map<Vertex<String>, Vertex<String>> dijkstra = citiesGraphAL.dijkstra(source);
+            System.out.println(dijkstra.get(citiesGraphAL.getVertex(destination)) + " --> " + citiesGraphAL.getVertex(destination).getDistance() + " --> " + citiesGraphAL.getVertex(destination).getValue());
+            Vertex<String> prev = dijkstra.get(citiesGraphAL.getVertex(destination));
+            while (prev != null) {
+                System.out.println(prev + " --> " + prev.getDistance() + " --> " + prev.getValue());
+                prev = dijkstra.get(prev);
+            }
+        } else {
+
+        }
     }
 
     public ArrayList<Vertex_List<String>> getVertices() {
