@@ -320,8 +320,13 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
 
     public boolean isConnected() {
         for (Vertex_Matrix<T> v : vertices) {
-            if (v.getDistance() == Integer.MAX_VALUE) {
-                return false;
+            for (int i = 0; i < vertices.size(); i++) {
+                if (adjacencyMatrix[vertices.indexOf(v)][i] != 0) {
+                    break;
+                }
+                if (i == vertices.size() - 1) {
+                    return false;
+                }
             }
         }
         return true;
