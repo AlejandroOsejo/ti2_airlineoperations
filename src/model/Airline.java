@@ -1,18 +1,20 @@
 package model;
 
 import graph.GraphAdjacencyList;
+import graph.GraphAdjacencyMatrix;
 import graph.Vertex;
 import graph.Vertex_List;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 public class Airline {
     private final GraphAdjacencyList<String> citiesGraphAL;
+    private final GraphAdjacencyMatrix<String> citiesGraphAM;
 
     public Airline() {
         this.citiesGraphAL = new GraphAdjacencyList<>(false);
+        this.citiesGraphAM = new GraphAdjacencyMatrix<>(false);
     }
 
     public void loadCities() {
@@ -21,6 +23,7 @@ public class Airline {
             String line;
             while ((line = br.readLine()) != null) {
                 this.citiesGraphAL.addVertex(line);
+                this.citiesGraphAM.addVertex(line);
             }
             br.close();
         } catch (IOException e) {
@@ -28,16 +31,33 @@ public class Airline {
         }
     }
 
-    public void loadConnections() {
+    public void loadConnections(int weightOption, int graphOption) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("resources\\connections.txt"));
             String line;
+            boolean isConnected = graphOption == 1 ? this.citiesGraphAL.isConnected() : this.citiesGraphAM.isConnected();
             while ((line = br.readLine()) != null) {
                 String[] split = line.split(" - ");
                 String city1 = split[0];
                 String city2 = split[1];
-                int distance = Integer.parseInt(split[2]);
-                this.citiesGraphAL.addEdge(city1, city2, distance);
+                String weight;
+                if (weightOption == 0) {
+                    weight = split[2];
+                } else {
+                    weight = split[3].substring(1);
+                }
+                if (isConnected) {
+                    if (graphOption == 1) {
+                        this.citiesGraphAL.removeEdge(city1, city2);
+                    } else {
+                        this.citiesGraphAM.removeEdge(city1, city2);
+                    }
+                }
+                if (graphOption == 1) {
+                    this.citiesGraphAL.addEdge(city1, city2, Integer.parseInt(weight));
+                } else {
+                    this.citiesGraphAM.addEdge(city1, city2, Integer.parseInt(weight));
+                }
             }
             br.close();
         } catch (IOException e) {
