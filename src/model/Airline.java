@@ -132,22 +132,45 @@ public class Airline {
         }
     }
 
-    public void getShortestPath(String source, String destination, int graphOption) {
+    public void getShortestPath(String source, String destination, int weightOption, int graphOption) {
         System.out.println("\nShortest path from " + source + " to " + destination + ": \n");
+        loadConnections(weightOption, graphOption);
         if (graphOption == 1) {
             Map<Vertex<String>, Vertex<String>> dijkstra = citiesGraphAL.dijkstra(source);
-            System.out.println(dijkstra.get(citiesGraphAL.getVertex(destination)) + " --> " + citiesGraphAL.getVertex(destination).getDistance() + " --> " + citiesGraphAL.getVertex(destination).getValue());
-            Vertex<String> prev = dijkstra.get(citiesGraphAL.getVertex(destination));
-            while (prev != null) {
-                System.out.println(prev + " --> " + prev.getDistance() + " --> " + prev.getValue());
-                prev = dijkstra.get(prev);
+            if (weightOption == 0) {
+                System.out.println(dijkstra.get(citiesGraphAL.getVertex(destination)) + " --> " + citiesGraphAL.getVertex(destination).getDistance() + " minutes --> " + citiesGraphAL.getVertex(destination).getValue());
+                Vertex<String> prev = dijkstra.get(citiesGraphAL.getVertex(destination));
+                while (prev != null && dijkstra.get(prev) != null) {
+                    System.out.println(dijkstra.get(prev) + " --> " + prev.getDistance() + " minutes --> " + prev.getValue());
+                    prev = dijkstra.get(prev);
+                }
+            } else {
+                System.out.println(dijkstra.get(citiesGraphAL.getVertex(destination)) + " --> $" + citiesGraphAL.getVertex(destination).getDistance() + " --> " + citiesGraphAL.getVertex(destination).getValue());
+                Vertex<String> prev = dijkstra.get(citiesGraphAL.getVertex(destination));
+                while (prev != null && dijkstra.get(prev) != null) {
+                    System.out.println(dijkstra.get(prev) + " --> $" + prev.getDistance() + " --> " + prev.getValue());
+                    prev = dijkstra.get(prev);
+                }
             }
         } else {
+            this.citiesGraphAM.dijkstra(source);
+            if (weightOption == 0) {
+                System.out.println(citiesGraphAM.getVertex(destination).getParent() + " --> " + citiesGraphAM.getVertex(destination).getDistance() + " minutes --> " + citiesGraphAM.getVertex(destination).getValue());
+                Vertex_Matrix<String> prev = citiesGraphAM.getVertex(destination).getParent();
+                while (prev != null && prev.getParent() != null) {
+                    System.out.println(prev.getParent() + " --> " + prev.getDistance() + " minutes --> " + prev.getValue());
+                    prev = prev.getParent();
+                }
+            } else {
+                System.out.println(citiesGraphAM.getVertex(destination).getParent() + " --> $" + citiesGraphAM.getVertex(destination).getDistance() + " --> " + citiesGraphAM.getVertex(destination).getValue());
+                Vertex_Matrix<String> prev = citiesGraphAM.getVertex(destination).getParent();
+                while (prev != null && prev.getParent() != null) {
+                    System.out.println(prev.getParent() + " --> $" + prev.getDistance() + " --> " + prev.getValue());
+                    prev = prev.getParent();
+                }
+            }
+
 
         }
-    }
-
-    public ArrayList<Vertex_List<String>> getVertices() {
-        return this.citiesGraphAL.getVertices();
     }
 }
