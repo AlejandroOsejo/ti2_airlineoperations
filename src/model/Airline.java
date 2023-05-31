@@ -169,8 +169,14 @@ public class Airline {
                     prev = prev.getParent();
                 }
             }
-
-
         }
+    }
+
+    public GraphAdjacencyList<String> getCitiesGraphAL() {
+        return citiesGraphAL;
+    }
+
+    public GraphAdjacencyMatrix<String> getCitiesGraphAM() {
+        return citiesGraphAM;
     }
 }
