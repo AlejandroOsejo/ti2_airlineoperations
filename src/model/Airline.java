@@ -79,16 +79,32 @@ public class Airline {
         }
     }
 
-    public void showConnections(int graphOption) {
+    public void showConnections(int weightOption, int graphOption) {
         if (graphOption == 1) {
             ArrayList<Vertex_List<String>> vertices = this.citiesGraphAL.getVertices();
             for (Vertex_List<String> vertex : vertices) {
-                System.out.println(vertex.getValue() + " " + vertex.getDistance() + " " + vertex.getParent());
+                Map<Vertex_List<String>, Integer> adjacent = vertex.getAdjacent();
+                for (Map.Entry<Vertex_List<String>, Integer> entry : adjacent.entrySet()) {
+                    if (weightOption == 0) {
+                        System.out.println(vertex.getValue() + " --> " + entry.getValue() + " minutes --> " + entry.getKey().getValue());
+                    } else {
+                        System.out.println(vertex.getValue() + " --> $" + entry.getValue() + " --> " + entry.getKey().getValue());
+                    }
+                }
             }
         } else {
+            int[][] connections = this.citiesGraphAM.getAdjacencyMatrix();
             ArrayList<Vertex_Matrix<String>> vertices = this.citiesGraphAM.getVertices();
-            for (Vertex_Matrix<String> vertex : vertices) {
-                System.out.println(vertex.getValue() + " " + vertex.getDistance() + " " + vertex.getParent());
+            for (int i = 0; i < connections.length; i++) {
+                for (int j = 0; j < connections.length; j++) {
+                    if (connections[i][j] != 0) {
+                        if (weightOption == 0) {
+                            System.out.println(vertices.get(i).getValue() + " --> " + connections[i][j] + " minutes --> " + vertices.get(j).getValue());
+                        } else {
+                            System.out.println(vertices.get(i).getValue() + " --> $" + connections[i][j] + " --> " + vertices.get(j).getValue());
+                        }
+                    }
+                }
             }
         }
     }

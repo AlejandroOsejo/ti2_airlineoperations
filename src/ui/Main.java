@@ -22,7 +22,6 @@ public class Main {
  */
     public static void main(String[] args) {
         airline = new Airline();
-
         selectGraph();
     }
 
@@ -68,11 +67,12 @@ public class Main {
         while (!exit) {
             System.out.println("\n---------- Select an option ----------");
             System.out.println("1. Show cities");
-            System.out.println("2. Show connections");
-            System.out.println("3. Show shortest path by time");
-            System.out.println("4. Show shortest path by cost");
-            System.out.println("5. Show minimum spanning tree by time");
-            System.out.println("6. Show minimum spanning tree by cost");
+            System.out.println("2. Show connections between cities by time");
+            System.out.println("3. Show connections between cities by cost");
+            System.out.println("4. Show shortest path by time");
+            System.out.println("5. Show shortest path by cost");
+            System.out.println("6. Show minimum spanning tree by time");
+            System.out.println("7. Show minimum spanning tree by cost");
             System.out.println("0. Exit");
             System.out.println("--------------------------------------");
 
@@ -82,21 +82,26 @@ public class Main {
                     airline.showCities(graphOption);
                     break;
                 case "2":
-                    airline.showConnections(graphOption);
+                    airline.loadConnections(0, graphOption);
+                    airline.showConnections(0,graphOption);
                     break;
                 case "3":
-                    // Terminar de implementar bien
-                    searchPath(graphOption);
+                    airline.loadConnections(1, graphOption);
+                    airline.showConnections(1,graphOption);
                     break;
                 case "4":
                     // Terminar de implementar bien
                     searchPath(graphOption);
                     break;
                 case "5":
+                    // Terminar de implementar bien
+                    searchPath(graphOption);
+                    break;
+                case "6":
                     airline.loadConnections(0, graphOption);
                     airline.optimize(0, graphOption);
                     break;
-                case "6":
+                case "7":
                     airline.loadConnections(1, graphOption);
                     airline.optimize(1, graphOption);
                     break;
