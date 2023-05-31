@@ -4,16 +4,36 @@ import model.Airline;
 
 import java.util.Scanner;
 
+/**
+* Class name: Main
+* General Description: This class represents the entry point of the airline program.
+*/
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
     private static Airline airline;
 
+/**
+* Method: main
+* @return type: void
+* @param : args (String[])
+* General description: This method is the main entry point of the program.
+* Parameter description: args - An array of strings representing the command line arguments.
+* @return value: None
+ */
     public static void main(String[] args) {
         airline = new Airline();
 
         selectGraph();
     }
 
+/**
+* Method: selectGraph
+* @return type: void
+* @param: None
+* General description: This method displays a menu to select the type of graph and loads the corresponding cities.
+* Parameter description: None
+* @return value: None
+*/
     public static void selectGraph() {
         System.out.println("---------- Select a graph ----------");
         System.out.println("1. Graph with Adjacency List");
@@ -35,7 +55,14 @@ public class Main {
                 break;
         }
     }
-
+/**
+* Method: menu
+* @return type: void
+* @param : graphOption (int)
+* General description: This method displays a menu of options and processes the selected option.
+* Parameter description: graphOption - An integer representing the graph option selected.
+* @return value: None
+*/
     public static void menu(int graphOption) {
         boolean exit = false;
         while (!exit) {
@@ -83,6 +110,14 @@ public class Main {
         }
     }
 
+/**
+* Method: searchPath
+* @return type: void
+* @param: graphOption (int)
+* General description: This method prompts the user to select an origin city and a destination city to search for the shortest route.
+* Parameter description: graphOption - An integer representing the graph option selected.
+* @return value: None
+ */
     public static void searchPath(int graphOption) {
         System.out.println("\nSelect a source city:");
         String source = sc.nextLine();
