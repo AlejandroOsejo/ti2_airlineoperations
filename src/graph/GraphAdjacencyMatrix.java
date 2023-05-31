@@ -189,6 +189,7 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         s.setDistance(0);
 
         PriorityQueue<Vertex_Matrix<T>> queue = new PriorityQueue<>(Comparator.comparingInt(Vertex_Matrix::getDistance));
+        queue.offer(s);
 
         while (!queue.isEmpty()) {
             Vertex_Matrix<T> u = queue.poll();
@@ -269,11 +270,14 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         for (Vertex_Matrix<T> u : this.vertices) {
             u.setDistance(Integer.MAX_VALUE);
             u.setParent(null);
+            u.setColor("white");
         }
 
         s.setDistance(0);
+        s.setParent(null);
 
         PriorityQueue<Vertex_Matrix<T>> queue = new PriorityQueue<>(Comparator.comparingInt(Vertex_Matrix::getDistance));
+        queue.addAll(this.vertices);
 
         while (!queue.isEmpty()) {
             Vertex_Matrix<T> u = queue.poll();
