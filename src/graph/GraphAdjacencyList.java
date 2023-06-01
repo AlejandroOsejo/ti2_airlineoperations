@@ -2,16 +2,30 @@ package graph;
 
 import java.util.*;
 
+/**
+ * Class name: GraphAdjacencyList
+ * General Description: This class represents a weighted graph using adjacency lists. It provides methods for adding vertices and edges, performing BFS and DFS paths, finding shortest paths, and computing minimum spanning trees, among other operations.
+ */
 public class GraphAdjacencyList<T> implements IGraph<T> {
     private final ArrayList<Vertex_List<T>> vertices;
     private final boolean directed;
     private int time;
 
+    /**
+     * Method: GraphAdjecencyList - Creates an instance of the GraphAdjacencyList class with the specified configuration.
+     *
+     * @param directed The directed parameter indicates whether the network is directed (true) or undirected (false).
+     */
     public GraphAdjacencyList(boolean directed) {
         this.vertices = new ArrayList<>();
         this.directed = directed;
     }
 
+    /**
+     * Method: addVertex - Adds a new vertex to the network.
+     *
+     * @param vertex The vertex parameter is the vertex to be added to the network.
+     */
     @Override
     public void addVertex(T vertex) {
         if (getVertex(vertex) != null) {
@@ -21,6 +35,13 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         this.vertices.add(new Vertex_List<>(vertex));
     }
 
+    /**
+     * Method: addEdge - Adds an edge between two vertices with a given weight.
+     *
+     * @param source      The vertex of origin of the edge.
+     * @param destination The target vertex of the edge.
+     * @param weight      The weight of the edge.
+     */
     @Override
     public void addEdge(T source, T destination, int weight) {
         Vertex_List<T> vertexList1 = getVertex(source);
@@ -40,6 +61,11 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         }
     }
 
+    /**
+     * Method: removeVertex - Removes a vertex and all its associated edges from the graph.
+     *
+     * @param vertex The vertex to be removed from the network.
+     */
     @Override
     public void removeVertex(T vertex) {
         Vertex_List<T> v = getVertex(vertex);
@@ -53,6 +79,11 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         }
     }
 
+    /**
+     * Method: removeEdge - Removes an edge between two vertices of the graph.
+     * @param source The origin vertex of the edge to be deleted.
+     * @param destination The target vertex of the edge to be deleted.
+     */
     @Override
     public void removeEdge(T source, T destination) {
         Vertex_List<T> vertexList1 = getVertex(source);
@@ -72,6 +103,10 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         }
     }
 
+    /**
+     * Method: BFS - Performs a BFS (Breadth-First Search) path from a given source vertex.
+     * @param source The source vertex from which the BFS path starts.
+     */
     @Override
     public void BFS(T source) {
         Vertex_List<T> s = getVertex(source);
@@ -108,6 +143,10 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         }
     }
 
+    /**
+     * Method: DFS - performs a DFS (Depth-First Search) path from a given source vertex.
+     * @param source The source vertex from which the DFS path starts.
+     */
     @Override
     public void DFS(T source) {
         Vertex_List<T> s = getVertex(source);
@@ -125,6 +164,10 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         DFSVisit(s);
     }
 
+    /**
+     * Method: DFSVisit - This method performs a recursive DFS visit from a given starting vertex. It marks the starting vertex as visited ("gray"), updates its discovery time, and then iterates over adjacent unvisited vertices. For each adjacent unvisited vertex, it sets its parent as the start vertex and makes a recursive call to DFSVisit with that vertex as the start. After visiting all adjacent vertices, it marks the starting vertex as completed ("black") and updates its completion time.
+     * @param start The starting vertex from which the DFS visit is made.
+     */
     private void DFSVisit(Vertex_List<T> start) {
         this.time++;
         start.setDiscoveryTime(this.time);
@@ -142,6 +185,11 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         start.setFinishingTime(this.time);
     }
 
+    /**
+     * Method: dijkstra - Find the shortest path from a given source vertex to all other vertices using Dijkstra's algorithm.
+     * @param source The source vertex from which Dijkstra's algorithm starts.
+     * @return 'Map <Vertex<T>, Vertex<T>>' Returns a map containing the preceding vertices on the shortest path from the source vertex to each of the other vertices.
+     */
     @Override
     public Map<Vertex<T>, Vertex<T>> dijkstra(T source) {
         Vertex<T> s = getVertex(source);
@@ -178,6 +226,10 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         return previous;
     }
 
+    /**
+     * Method: floydWarshall - Find the shortest paths between all pairs of vertices using the Floyd-Warshall algorithm.
+     * @return Vertex_List<T>[][] - Returns a two-dimensional array representing the preceding vertices on the shortest paths between all pairs of vertices.
+     */
     @Override
     public Vertex_List<T>[][] floydWarshall() {
         int[][] dist = new int[this.vertices.size()][this.vertices.size()];
@@ -219,6 +271,10 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         return prev;
     }
 
+    /**
+     * Method: prim - Find the minimum spanning tree using Prim's algorithm.
+     * @param source The source vertex from which the Prim algorithm starts.
+     */
     @Override
     public void prim(T source) {
         Vertex_List<T> s = getVertex(source);
@@ -253,6 +309,11 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         }
     }
 
+    /**
+     * Method: getVertex - This method finds and returns the Vertex_List<T> object corresponding to the specified value. It goes through the list of vertices and compares the value of each vertex with the value provided. If it finds a vertex with the same value, it returns it. If no vertex with the specified value is found, it returns null.
+     * @param value The value of the vertex to be searched.
+     * @return Vertex_List<T> - Returns the Vertex_List<T> object corresponding to the specified value if found. If no vertex with the specified value is found, returns null.
+     */
     public Vertex_List<T> getVertex(T value) {
         for (Vertex_List<T> vertexList : this.vertices) {
             if (vertexList.getValue().equals(value)) {
@@ -262,14 +323,26 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
         return null;
     }
 
+    /**
+     * Method: isDirected - This method returns a boolean value indicating whether the network is directed or not. It checks the directed attribute of the network and returns its value.
+     * @return boolean - Returns true if the network is directed, and false if it is not.
+     */
     public boolean isDirected() {
         return this.directed;
     }
 
+    /**
+     * Method: getVertices - This method returns the list of vertices of the network.
+     * @return ArrayList<Vertex_List<T>> - Returns the list of vertices of the network as an ArrayList<Vertex_List<T>> object.
+     */
     public ArrayList<Vertex_List<T>> getVertices() {
         return this.vertices;
     }
 
+    /**
+     * Method: isConnected - This method checks if the network is connected. It goes through the list of vertices and checks if any vertex has no adjacents. If it finds any vertex with no adjacents, it returns false. If all vertices have at least one adjacent, it returns true.
+     * @return boolean - Returns true if the network is connected, that is, if all vertices have at least one adjacent. It returns false if there are any vertices with no adjacent vertices.
+     */
     public boolean isConnected() {
         for (Vertex_List<T> vertexList : this.vertices) {
             if (vertexList.getAdjacent().isEmpty()) {
