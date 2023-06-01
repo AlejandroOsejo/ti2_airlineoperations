@@ -5,15 +5,30 @@ import graph.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Class name: Airline
+ * General Description: This class represents the airline and contains the methods and attributes.
+ */
 public class Airline {
     private final GraphAdjacencyList<String> citiesGraphAL;
     private final GraphAdjacencyMatrix<String> citiesGraphAM;
 
+    /**
+     * Method: Airline - Constructor of the Airline class. Initializes city charts with adjacency lists and adjacency matrices.
+     * @param : None
+     * @return : None
+     */
     public Airline() {
         this.citiesGraphAL = new GraphAdjacencyList<>(false);
         this.citiesGraphAM = new GraphAdjacencyMatrix<>(false);
     }
 
+    /**
+     * Method: loadCitties
+     * Loads the cities from a file and adds them to the corresponding chart according to the selected option.
+     * @param graphOption - An integer representing the selected chart option.
+     * @return : Void
+     */
     public void loadCities(int graphOption) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("resources\\cities.txt"));
@@ -31,6 +46,13 @@ public class Airline {
         }
     }
 
+    /**
+     * Method: loadConnections
+     * Loads the connections between cities from a file and adds them to the corresponding graph according to the selected options.
+     * @param weightOption - An integer representing the selected weight option.
+     * @param graphOption - An integer representing the selected chart option.
+     * @return : void
+     */
     public void loadConnections(int weightOption, int graphOption) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("resources\\connections.txt"));
@@ -65,6 +87,12 @@ public class Airline {
         }
     }
 
+    /**
+     * Method: showCities
+     * Displays the cities of the selected chart.
+     * @param graphOption - An integer representing the selected chart option.
+     * @return : void
+     */
     public void showCities(int graphOption) {
         if (graphOption == 1) {
             ArrayList<Vertex_List<String>> vertices = this.citiesGraphAL.getVertices();
@@ -79,6 +107,13 @@ public class Airline {
         }
     }
 
+    /**
+     * Method: showConnections
+     * Displays the connections between cities in the selected chart.
+     * @param weightOption - An integer representing the selected weight option.
+     * @param graphOption - An integer representing the selected chart option.
+     * @return : void
+     */
     public void showConnections(int weightOption, int graphOption) {
         if (graphOption == 1) {
             ArrayList<Vertex_List<String>> vertices = this.citiesGraphAL.getVertices();
@@ -109,6 +144,13 @@ public class Airline {
         }
     }
 
+    /**
+     * Method: optimize
+     * Optimizes the selected graph using the Prim algorithm and displays the minimum spanning tree from the city "New York City".
+     * @param weightOption - An integer representing the selected weight option.
+     * @param graphOption - An integer representing the selected chart option.
+     * @return : void
+     */
     public void optimize(int weightOption, int graphOption) {
         System.out.println("\nMinimum spanning tree from New York City: \n");
         if (graphOption == 1) {
@@ -132,6 +174,14 @@ public class Airline {
         }
     }
 
+    /**
+     * Method: getShortestPath - Finds and displays the shortest route from an origin city to a destination city using Dijkstra's algorithm.
+     * @param source A chain representing the city of origin.
+     * @param destination A string representing the destination city.
+     * @param weightOption An integer representing the selected weight option.
+     * @param graphOption An integer representing the selected chart option.
+     * @return : void
+     */
     public void getShortestPath(String source, String destination, int weightOption, int graphOption) {
         System.out.println("\nShortest path from " + source + " to " + destination + ": \n");
         loadConnections(weightOption, graphOption);
@@ -172,10 +222,18 @@ public class Airline {
         }
     }
 
+    /**
+     * Method: getCitiesGraphAL - Returns the cities graph based on adjacency lists.
+     * @return A GraphAdjacencyList<String> object representing the graph of cities based on adjacency lists.
+     */
     public GraphAdjacencyList<String> getCitiesGraphAL() {
         return citiesGraphAL;
     }
 
+    /**
+     * Method: getCitiesGraphAM - Returns the cities graph based on adjacency matrices.
+     * @return A GraphAdjacencyMatrix<String> object representing the city graph based on adjacency matrices.
+     */
     public GraphAdjacencyMatrix<String> getCitiesGraphAM() {
         return citiesGraphAM;
     }

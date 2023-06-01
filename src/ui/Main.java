@@ -14,12 +14,9 @@ public class Main {
 
     /**
      * Method: main
-     *
-     * @param : args (String[])
-     *          General description: This method is the main entry point of the program.
-     *          Parameter description: args - An array of strings representing the command line arguments.
+     * This method is the main entry point of the program.
+     * @param : args (String[]) - An array of strings representing the command line arguments.
      * @return type: void
-     * @return value: None
      **/
     public static void main(String[] args) {
         airline = new Airline();
@@ -28,12 +25,9 @@ public class Main {
 
     /**
      * Method: selectGraph
-     *
-     * @return type: void
-     * @return value: None
+     * This method displays a menu to select the type of graph and loads the corresponding cities.
      * @param: None
-     * General description: This method displays a menu to select the type of graph and loads the corresponding cities.
-     * Parameter description: None
+     * @return type: void
      */
     public static void selectGraph() {
         System.out.println("---------- Select a graph ----------");
@@ -59,12 +53,9 @@ public class Main {
 
     /**
      * Method: menu
-     *
-     * @param : graphOption (int)
-     *          General description: This method displays a menu of options and processes the selected option.
-     *          Parameter description: graphOption - An integer representing the graph option selected.
+     * This method displays a menu of options and processes the selected option.
+     * @param : graphOption (int) - An integer representing the graph option selected.
      * @return type: void
-     * @return value: None
      */
     public static void menu(int graphOption) {
         boolean exit = false;
@@ -119,15 +110,10 @@ public class Main {
 
     /**
      * Method: searchPath
-     *
-     * @param : weightOption (int)
-     *          General description: This method prompts the user to select an origin city and a destination city to search for the shortest route.
-     *          Parameter description: weightOption - An integer representing the weight option selected.
-     * @param : graphOption (int)
-     *          General description: This method prompts the user to select an origin city and a destination city to search for the shortest route.
-     *          Parameter description: graphOption - An integer representing the graph option selected.
+     * This method prompts the user to select an origin city and a destination city to search for the shortest route.
+     * @param : weightOption (int) - An integer representing the weight option selected.
+     * @param : graphOption (int) - An integer representing the graph option selected.
      * @return type: void
-     * @return value: None
      */
     public static void searchPath(int weightOption, int graphOption) {
         System.out.println("\nSelect a source city:");
