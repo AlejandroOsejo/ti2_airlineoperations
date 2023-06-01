@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Class name: GraphAdjacencyList
- * General Description: This class represents a weighted graph using adjacency lists. It provides methods for adding vertices and edges, performing BFS and DFS paths, finding shortest paths, and computing minimum spanning trees, among other operations.
+ * General Description: This class represents a weighted graph using adjacency lists. It provides methods for adding vertices and edges, performing BFS and DFS paths, finding the shortest paths, and computing minimum spanning trees, among other operations.
  */
 public class GraphAdjacencyList<T> implements IGraph<T> {
     private final ArrayList<Vertex_List<T>> vertices;
@@ -12,7 +12,7 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
     private int time;
 
     /**
-     * Method: GraphAdjecencyList - Creates an instance of the GraphAdjacencyList class with the specified configuration.
+     * Method: GraphAdjacencyList - Creates an instance of the GraphAdjacencyList class with the specified configuration.
      *
      * @param directed The directed parameter indicates whether the network is directed (true) or undirected (false).
      */
@@ -340,7 +340,7 @@ public class GraphAdjacencyList<T> implements IGraph<T> {
     }
 
     /**
-     * Method: isConnected - This method checks if the network is connected. It goes through the list of vertices and checks if any vertex has no adjacents. If it finds any vertex with no adjacents, it returns false. If all vertices have at least one adjacent, it returns true.
+     * Method: isConnected - This method checks if the network is connected. It goes through the list of vertices and checks if any vertex has no adjacent. If it finds any vertex with no adjacent, it returns false. If all vertices have at least one adjacent, it returns true.
      * @return boolean - Returns true if the network is connected, that is, if all vertices have at least one adjacent. It returns false if there are any vertices with no adjacent vertices.
      */
     public boolean isConnected() {
