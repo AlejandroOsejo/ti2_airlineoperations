@@ -2,18 +2,30 @@ package graph;
 
 import java.util.*;
 
+/**
+ * Class name: GraphAdjacencyMatrix
+ * General Description: An implementation of the IGraph<T> interface that represents a graph using an adjacency matrix.
+ */
 public class GraphAdjacencyMatrix<T> implements IGraph<T> {
     private final ArrayList<Vertex_Matrix<T>> vertices;
     private int[][] adjacencyMatrix;
     private final boolean directed;
     private int time;
 
+    /**
+     * Method: GraphAdjacencyMatrix - Creates an instance of the GraphAdjacencyMatrix class.
+     * @param directed A boolean value indicating whether the graph is directed (true) or undirected (false).
+     */
     public GraphAdjacencyMatrix(boolean directed) {
         this.vertices = new ArrayList<>();
         this.adjacencyMatrix = new int[0][0];
         this.directed = directed;
     }
 
+    /**
+     * Method: addVertex - Adds a new vertex to the network.
+     * @param vertex The vertex to be added to the network.
+     */
     @Override
     public void addVertex(T vertex) {
         if (getVertex(vertex) != null) {
@@ -31,6 +43,12 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         this.adjacencyMatrix = newAdjacencyMatrix;
     }
 
+    /**
+     * Method: addEdge - Adds an edge to the network between the source vertex and the destination vertex.
+     * @param source The source vertex of the edge.
+     * @param destination The destination vertex of the edge.
+     * @param weight The weight or cost of the edge.
+     */
     @Override
     public void addEdge(T source, T destination, int weight) {
         int sourceIndex = getIndex(source);
@@ -51,6 +69,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         }
     }
 
+    /**
+     * Method: removeVertex - Removes a vertex and all its associated edges from the network.
+     * @param vertex The vertex to be removed from the network.
+     */
     @Override
     public void removeVertex(T vertex) {
         int vertexIndex = getIndex(vertex);
@@ -77,6 +99,11 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         this.adjacencyMatrix = newAdjacencyMatrix;
     }
 
+    /**
+     * Method: removeEdge - Removes the edge between the source vertex and the target vertex of the network.
+     * @param vertex1 The source vertex of the edge.
+     * @param vertex2 The target vertex of the edge.
+     */
     @Override
     public void removeEdge(T vertex1, T vertex2) {
         int vertex1Index = getIndex(vertex1);
@@ -97,6 +124,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         }
     }
 
+    /**
+     * Method: BFS - Performs a BFS (Breadth-First Search) path in the network starting from the specified starting vertex.
+     * @param source The starting vertex of the BFS path.
+     */
     @Override
     public void BFS(T source) {
         Vertex_Matrix<T> vertex = getVertex(source);
@@ -137,6 +168,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         }
     }
 
+    /**
+     * Method: DFS - Performs a DFS (Depth-First Search) path in the network, starting from the origin vertex.
+     * @param source The value of the origin vertex.
+     */
     @Override
     public void DFS(T source) {
         Vertex_Matrix<T> s = getVertex(source);
@@ -154,6 +189,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         DFSVisit(s);
     }
 
+    /**
+     * Method: DFSVisit - Performs a DFS (Depth-First Search) path by visiting the starting vertex and exploring all its adjacent vertices recursively. all its adjacent vertices recursively.
+     * @param start The starting vertex to perform the DFS path.
+     */
     private void DFSVisit(Vertex_Matrix<T> start) {
         this.time++;
         start.setDiscoveryTime(this.time);
@@ -174,6 +213,11 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         start.setFinishingTime(this.time);
     }
 
+    /**
+     * Method: dijkstra - Calculates the minimum distances from the source vertex to all other vertices using Dijkstra's algorithm. Returns a map containing each vertex and its parent vertex on the shortest path.
+     * @param source The source vertex from which the algorithm starts.
+     * @return Map<Vertex<T>, Vertex<T>> - A map containing each vertex and its respective parent on the shortest path.
+     */
     @Override
     public Map<Vertex<T>, Vertex<T>> dijkstra(T source) {
         Vertex_Matrix<T> s = getVertex(source);
@@ -214,6 +258,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         return map;
     }
 
+    /**
+     * Method: floydWarshall - This method uses the Floyd-Warshall algorithm to find all shortest paths between all pairs of vertices in a weighted graph.
+     * @return Vertex_Matriz<T>[][] - A vertex array representing the previous vertices in the shortest paths encountered.
+     */
     @Override
     public Vertex_Matrix<T>[][] floydWarshall() {
         int n = vertices.size();
@@ -260,6 +308,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         return prev;
     }
 
+    /**
+     * Method: prim - This method implements Prim's algorithm to find a minimum spanning tree in an undirected weighted graph.
+     * @param source The value of the source vertex from which the Prim algorithm will start.
+     */
     @Override
     public void prim(T source) {
         Vertex_Matrix<T> s = getVertex(source);
@@ -296,6 +348,11 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         }
     }
 
+    /**
+     * Method: getIndex - This method searches for the index of a vertex in the list of vertices of the network.
+     * @param vertex The value of the vertex to search for.
+     * @return int - The index of the vertex in the vertex list, or -1 if the vertex is not in the list.
+     */
     private int getIndex(T vertex) {
         for (int i = 0; i < vertices.size(); i++) {
             if (vertices.get(i).getValue().equals(vertex)) {
@@ -305,6 +362,11 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         return -1;
     }
 
+    /**
+     * Method: getVertex - Returns the index of a vertex in the vertex list.
+     * @param vertex The vertex for which the index is sought.
+     * @return Vertex_Matrix<T> - The index of the vertex in the vertex list, or -1 if the vertex is not found in the list.
+     */
     public Vertex_Matrix<T> getVertex(T vertex) {
         for (Vertex_Matrix<T> v : vertices) {
             if (v.getValue().equals(vertex)) {
@@ -314,14 +376,26 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         return null;
     }
 
+    /**
+     * Method: isDirected - This method returns a boolean value indicating whether the network is directed or undirected.
+     * @return boolean - true if the network is directed, false if it is not.
+     */
     public boolean isDirected() {
         return this.directed;
     }
 
+    /**
+     * Method: getVertices - This method returns a list of all vertices present in the network.
+     * @return ArrayList<Vertex_Matrix<T>> - List of network vertices.
+     */
     public ArrayList<Vertex_Matrix<T>> getVertices() {
         return this.vertices;
     }
 
+    /**
+     * Method: isConnected - This method checks if the network is connected, that is, if there is a path between all pairs of vertices in the network.
+     * @return boolean - Returns true if the network is connected, otherwise it returns false.
+     */
     public boolean isConnected() {
         for (Vertex_Matrix<T> v : vertices) {
             for (int i = 0; i < vertices.size(); i++) {
@@ -336,6 +410,10 @@ public class GraphAdjacencyMatrix<T> implements IGraph<T> {
         return true;
     }
 
+    /**
+     * Method: getAdjacencyMatrix - This method returns the adjacency matrix of the network. The adjacency matrix represents the connections between the vertices of the network, where each entry in the matrix indicates the existence of an edge between two vertices.
+     * @return int[][] - The adjacency matrix of the network.
+     */
     public int[][] getAdjacencyMatrix() {
         return this.adjacencyMatrix;
     }
